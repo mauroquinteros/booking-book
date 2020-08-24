@@ -1,0 +1,78 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
+body {
+  font-size: 16px;
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+ul {
+  padding: 0;
+}
+.main {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex;
+  justify-content: center;
+}
+.row {
+  width: 100%;
+}
+.sign-in-container {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Utils */
+.min-width-70 {
+  min-width: 70%;
+}
+
+/* Search */
+.search-form {
+  padding: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.search-input {
+  width: 60%;
+}
+/* book-item */
+.book-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  list-style-type: none;
+  border: 1px solid blue;
+  margin-bottom: 1rem;
+}
+.book-item:last-of-type {
+  margin-bottom: 0;
+}
+.book-item-description {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.book-item-image {
+  width: 7.5rem;
+  height: 7.5rem;
+  object-fit: contain;
+}
+.book-item-info h4 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.book-item-info p {
+  margin-bottom: 0;
+}
