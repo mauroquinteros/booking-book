@@ -8,7 +8,8 @@ $form.addEventListener("submit", async (ev) => {
   const userCode = document.querySelector("#user-code");
   const data = await getUserById(userCode.value);
   setLocalStorage(data);
-  window.location.href = "http://localhost:5500/libros.html";
+  window.location.href =
+    "https://mauroquinteros.github.io/reservar-libro/libros.html";
 });
 
 const getUserById = async (id) => {
