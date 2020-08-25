@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Books</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -23,20 +23,24 @@
             <p>Sistema de Bibliotecas UNFV</p>
           </div>
           <form id="search-form" class="search-form">
-            <input
-              class="search-input"
-              id="search-input"
-              type="text"
-              name="title"
-              placeholder="Busca por el nombre del libro"
-            />
-            <input
-              class="search-button btn-success"
-              type="submit"
-              value="Buscar"
-            />
+            <div class="search-form-container">
+              <input
+                class="search-input"
+                id="search-input"
+                type="text"
+                name="title"
+                placeholder="Busca por el nombre del libro"
+              />
+              <button class="search-button" type="submit">
+                <img
+                  class="search-button-icon"
+                  src="./images/search.svg"
+                  alt="search icon"
+                />
+              </button>
+            </div>
           </form>
-          <ul class="list" id="list-book">
+          <ul class="book-list" id="list-book">
             <p>...Loading</p>
           </ul>
         </div>
@@ -52,6 +56,7 @@
       integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
       crossorigin="anonymous"
     ></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="./js/books.js"></script>
   </body>
 </html>

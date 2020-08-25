@@ -1,6 +1,16 @@
+/* --- Variables --- */
+:root {
+  --bg-body: #f3f7f9;
+  --bg-search: #f1f5f8;
+  --bg-search-btn: rgb(79, 112, 255);
+  --clr-search: rgba(0, 0, 0, 0.5);
+  --width-search-btn: 3.375rem;
+  --shadow-card: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --clr-book-title: rgb(30, 45, 79);
+}
 /* --- Fonts --- */
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
 /* --- Globals --- */
 *,
 *::before,
@@ -8,15 +18,15 @@
   box-sizing: border-box;
 }
 body {
-  font-size: 1rem;
-  font-family: "Roboto", sans-serif;
   margin: 0;
   padding: 0;
+  font-size: 1rem;
+  font-family: "Inter", sans-serif;
+  background-color: var(--bg-body);
 }
 ul {
   padding: 0;
 }
-
 /* --- Utils --- */
 .main {
   min-height: 100vh;
@@ -30,46 +40,133 @@ ul {
 .u-border {
   border-width: 0.125rem;
 }
-
 /* Search */
 .search-form {
-  padding: 1.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 1.5rem;
+  padding: 1.2rem 1rem;
+}
+.search-form-container {
+  width: 30rem;
+  display: flex;
+  align-items: center;
+  background-color: var(--white);
+  border-radius: 0.9375rem;
+  padding: 1.25rem 0.9375rem;
+  box-shadow: var(--shadow-card);
 }
 .search-input {
-  width: 60%;
+  display: block;
+  width: calc(100% - var(--width-search-btn));
+  height: 100%;
+  padding: 0.9375rem 10px;
+  border: none;
+  outline: none;
+  border-radius: 0.625rem;
+  background-color: var(--bg-search);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--clr-search);
 }
-
-/* book-item */
-.book-item {
+.search-input::placeholder {
+  color: var(--clr-search);
+}
+.search-button {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0.5rem;
-  list-style-type: none;
-  border: 1px solid blue;
-  margin-bottom: 1rem;
+  justify-content: center;
+  width: var(--width-search-btn);
+  height: var(--width-search-btn);
+  background-color: var(--bg-search-btn);
+  border: none;
+  outline: none;
+  border-radius: 0.625rem;
 }
-.book-item:last-of-type {
-  margin-bottom: 0;
+.search-button:focus {
+  border: none;
+  outline: none;
 }
-.book-item-description {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.search-button:active {
+  border: none;
 }
-.book-item-image {
-  width: 7.5rem;
-  height: 7.5rem;
+.search-button-icon {
+  width: 1.2rem;
+  height: 1.2rem;
   object-fit: contain;
 }
-.book-item-info h4 {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
+/* --- Book List --- */
+.book-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18.75rem, 1fr));
+  row-gap: 2.2rem;
+  column-gap: 1.5rem;
+}
+.book-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 0.8rem;
+  padding: 2.5rem 1.25rem;
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow-card);
+  background-color: var(--white);
+  list-style-type: none;
+}
+.book-item-title {
+  grid-column: 1 / span 2;
+  margin: 0;
+  overflow: auto;
+  white-space: nowrap;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  color: var(--clr-book-title);
+}
+.book-item-description {
+  grid-column: 1 / span 2;
+  display: flex;
+  align-items: flex-start;
+}
+.book-item-image {
+  width: 9.375rem;
+  height: 12.5rem;
+  object-fit: cover;
+  border-radius: 0.7rem;
+}
+.book-item-info {
+  margin-left: 1.2rem;
 }
 .book-item-info p {
   margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+}
+.book-item-info p:nth-child(2n + 1) {
+  font-weight: 500;
+}
+.book-item-info p:nth-child(2n) {
+  color: rgb(113, 128, 150);
+  margin-bottom: 1.3rem;
+}
+.book-item-button {
+  padding: 0.4rem 1.2rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background-color: var(--dark);
+  border: 1px solid var(--dark);
+  color: var(--white);
+  border-radius: 0.625rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.book-item-button:focus {
+  border: none;
+  outline: none;
+}
+.book-item-button:active {
+  border: none;
+}
+.book-item-button:hover {
+  background-color: var(--white);
+  color: var(--dark);
 }

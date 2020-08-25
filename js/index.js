@@ -7,9 +7,11 @@ const API_URL = "https://bibliotecaunfv.herokuapp.com";
 // Events
 $form.addEventListener("submit", async (ev) => {
   ev.preventDefault();
+  $btnSubmit.disabled = true;
   goToMainPage();
 });
 $btnSubmit.addEventListener("click", () => {
+  $btnSubmit.disabled = true;
   goToMainPage();
 });
 
@@ -21,11 +23,14 @@ async function goToMainPage() {
     const { status, data, message } = await getUserById(userCode.value);
     if (status) {
       setLocalStorage(data);
+      $btnSubmit.disabled = false;
       window.location.href = `${BASE_URL}/books.html`;
     } else {
-      console.log(message);
       validateInput(userCode, "#input-alert", message);
+      $btnSubmit.disabled = false;
     }
+  } else {
+    $btnSubmit.disabled = false;
   }
 }
 

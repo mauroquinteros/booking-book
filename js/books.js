@@ -1,6 +1,6 @@
 const $form = document.querySelector("#search-form");
 const $listBook = document.querySelector("#list-book");
-// const $btnSubmit = document.querySelector("#btn-submit");
+const $btnSubmit = document.querySelector("#btn-submit");
 
 const URL = "https://bibliotecaunfv.herokuapp.com";
 
@@ -60,15 +60,17 @@ const createItemBook = ({ titulo, autor, editorial, categoria, img, id }) => {
   bookItem.classList.add("book-item");
   bookItem.dataset.id = id;
   bookItem.innerHTML = `
+    <h4 class="book-item-title">${titulo}</h4>
     <div class="book-item-description">
       <img class="book-item-image" src=${img} alt=${titulo}>
       <div class="book-item-info">
-        <h4>${titulo}</h4>
+        <p>Autor:</p>
         <p>${autor}</p>
+        <p>Categoría:</p>
         <p>${categoria}</p>
       </div>
     </div>
-    <button class="book-item-button btn btn-primary">Reservar</button>
+    <button class="book-item-button">Reservar</button>
   `;
   return bookItem;
 };
@@ -114,22 +116,9 @@ const realizarReserva = async (reserva) => {
 };
 
 const addAlert = (data, parentNode) => {
-  const abueloNodo = parentNode.parentNode;
-  console.log(abueloNodo);
-  const alertElement = document.createElement("div");
-  alertElement.classList.add(
-    "alert",
-    "alert-success",
-    "alert-dismissible",
-    "fade",
-    "show"
-  );
-  alertElement.setAttribute("role", "alert");
-  alertElement.innerHTML = `
-    <strong>Reserva registrada exitosamente! 🥳</strong>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  `;
-  abueloNodo.insertBefore(alertElement, abueloNodo.firstChild);
+  swal({
+    title: "Reserva registrada exitosamente! 🥳",
+    text: `${new Date()}`,
+    icon: "success",
+  }).then(() => console.log("reserva exitosa"));
 };
