@@ -61,6 +61,8 @@ async function displayOneBook(titleBook) {
     removeLoader($listBook);
     const bookItem = createItemBook(data);
     $listBook.appendChild(bookItem);
+    const $btnBooking = document.querySelectorAll(".book-item-button");
+    addBookEvent($btnBooking);
   }
 }
 
