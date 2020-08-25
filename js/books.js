@@ -1,61 +1,70 @@
 const $form = document.querySelector("#search-form");
 const $listBook = document.querySelector("#list-book");
-const $btnSubmit = document.querySelector("#btn-submit");
+const $searchButton = document.querySelector("#search-button");
 
 const URL = "https://bibliotecaunfv.herokuapp.com";
 
+document.addEventListener("DOMContentLoaded", () => {
+  displayAllBooks();
+});
+
 $form.addEventListener("submit", async (ev) => {
   ev.preventDefault();
-  const titleBook = document.querySelector("#search-input");
-
-  $listBook.querySelectorAll("*").forEach((node) => node.remove());
-  const loading = document.createElement("p");
-  loading.innerText = "...Loading";
-  $listBook.appendChild(loading);
-
-  const { status, data } = await getBookByTitle(titleBook.value);
-  $listBook.querySelectorAll("*").forEach((node) => node.remove());
-  const bookItem = createItemBook(data);
-  $listBook.appendChild(bookItem);
-  console.log(status, data);
+  searchBook();
 });
 
-document.addEventListener("DOMContentLoaded", async () => {
-  await getAllBooks();
-});
-
-const getBookByTitle = async (title) => {
-  try {
-    const response = await fetch(`${URL}/libros/?titulo=${title}`);
-    const data = await response.json();
-    return data;
-  } catch (error) {}
-};
-
-const getAllBooks = async () => {
-  try {
-    const response = await fetch(`${URL}/libros`);
-    const { status, data } = await response.json();
-    console.log(data);
-
-    if (status) {
-      $listBook.querySelectorAll("*").forEach((node) => node.remove());
-      data.forEach((book) => {
-        const bookItem = createItemBook(book);
-        $listBook.appendChild(bookItem);
-      });
-      // Obtener los botones de reservar
-      const reservaButtons = $listBook.querySelectorAll(
-        ".book-item > .book-item-button"
-      );
-      reservarEvent(reservaButtons);
-    }
-  } catch (error) {
-    console.log(error);
+async function searchBook() {
+  const { value } = document.querySelector("#search-input");
+  addLoader($listBook);
+  if (value === "") {
+    displayAllBooks();
+  } else {
+    displayOneBook(value);
   }
-};
+}
 
-const createItemBook = ({ titulo, autor, editorial, categoria, img, id }) => {
+function addLoader($container) {
+  $container.classList.add("loading");
+  const $loader = document.createElement("div");
+  $loader.classList.add("load");
+  $loader.innerHTML = `
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+  `;
+  $container.appendChild($loader);
+}
+
+function removeLoader($container) {
+  $listBook.querySelectorAll("*").forEach((node) => node.remove());
+  $container.classList.remove("loading");
+}
+
+async function displayAllBooks() {
+  const { status, data } = await getAllBooks();
+  if (status) {
+    removeLoader($listBook);
+    data.forEach((book) => {
+      const $bookItem = createItemBook(book);
+      $listBook.appendChild($bookItem);
+    });
+    const $btnBookings = $listBook.querySelectorAll(
+      ".book-item > .book-item-button"
+    );
+    addBookEvent($btnBookings);
+  }
+}
+
+async function displayOneBook(titleBook) {
+  const { status, data } = await getBookByTitle(titleBook);
+  if (status) {
+    removeLoader($listBook);
+    const bookItem = createItemBook(data);
+    $listBook.appendChild(bookItem);
+  }
+}
+
+function createItemBook({ titulo, autor, editorial, categoria, img, id }) {
   const bookItem = document.createElement("li");
   bookItem.classList.add("book-item");
   bookItem.dataset.id = id;
@@ -68,57 +77,80 @@ const createItemBook = ({ titulo, autor, editorial, categoria, img, id }) => {
         <p>${autor}</p>
         <p>Categoría:</p>
         <p>${categoria}</p>
+        <p>Editorial:</p>
+        <p>${editorial}</p>
       </div>
     </div>
     <button class="book-item-button">Reservar</button>
   `;
   return bookItem;
-};
+}
 
-const reservarEvent = (reservaButtons) => {
-  reservaButtons.forEach((button) => {
-    button.onclick = reservar;
+async function getBookByTitle(title) {
+  try {
+    const response = await fetch(`${URL}/libros/?titulo=${title}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
+async function getAllBooks() {
+  try {
+    const response = await fetch(`${URL}/libros`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
+function getUserId() {
+  if (localStorage.getItem("user")) {
+    const { id } = JSON.parse(localStorage.getItem("user"));
+    return id;
+  }
+}
+
+function addBookEvent(bookingButtons) {
+  bookingButtons.forEach((button) => {
+    button.onclick = bookingEvent;
   });
-};
+}
 
-const reservar = async (ev) => {
-  console.log("click");
-  const idBook = ev.target.parentNode.dataset.id;
-  const idUser = getInfo();
-  const reserva = {
+async function bookingEvent({ target: { parentNode } }) {
+  const idBook = parentNode.dataset.id;
+  const idUser = getUserId();
+  const booking = {
     id_usuario: idUser,
     id_libro: idBook,
   };
-  console.log(reserva);
-  const data = await realizarReserva(reserva);
-  console.log(data);
-  addAlert(data, ev.target.parentNode);
-};
+  await makeBooking(booking);
+  addAlert();
+}
 
-const getInfo = () => {
-  if (localStorage.getItem("userCode")) {
-    const { id } = JSON.parse(localStorage.getItem("userCode"));
-    return id;
+async function makeBooking(booking) {
+  try {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(booking),
+    };
+    const response = await fetch(`${URL}/reserva`, options);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
   }
-};
+}
 
-const realizarReserva = async (reserva) => {
-  const options = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(reserva),
-  };
-  const response = await fetch(`${URL}/reserva`, options);
-  const data = await response.json();
-  return data;
-};
-
-const addAlert = (data, parentNode) => {
+function addAlert() {
   swal({
     title: "Reserva registrada exitosamente! 🥳",
-    text: `${new Date()}`,
+    text: `Fecha de la reserva: ${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`,
     icon: "success",
-  }).then(() => console.log("reserva exitosa"));
-};
+  });
+}

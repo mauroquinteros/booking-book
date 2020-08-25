@@ -2,7 +2,7 @@
 :root {
   --bg-body: #f3f7f9;
   --bg-search: #f1f5f8;
-  --bg-search-btn: rgb(79, 112, 255);
+  --clr-main: rgb(79, 112, 255);
   --clr-search: rgba(0, 0, 0, 0.5);
   --width-search-btn: 3.375rem;
   --shadow-card: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
@@ -26,6 +26,7 @@ body {
 }
 ul {
   padding: 0;
+  margin: 0;
 }
 /* --- Utils --- */
 .main {
@@ -79,7 +80,7 @@ ul {
   justify-content: center;
   width: var(--width-search-btn);
   height: var(--width-search-btn);
-  background-color: var(--bg-search-btn);
+  background-color: var(--clr-main);
   border: none;
   outline: none;
   border-radius: 0.625rem;
@@ -99,6 +100,7 @@ ul {
 /* --- Book List --- */
 .book-list {
   display: grid;
+  min-height: 50vh;
   grid-template-columns: repeat(auto-fit, minmax(18.75rem, 1fr));
   row-gap: 2.2rem;
   column-gap: 1.5rem;
@@ -115,6 +117,7 @@ ul {
 }
 .book-item-title {
   grid-column: 1 / span 2;
+  align-self: center;
   margin: 0;
   overflow: auto;
   white-space: nowrap;
@@ -125,6 +128,7 @@ ul {
 }
 .book-item-description {
   grid-column: 1 / span 2;
+  align-self: center;
   display: flex;
   align-items: flex-start;
 }
@@ -150,6 +154,10 @@ ul {
   margin-bottom: 1.3rem;
 }
 .book-item-button {
+  align-self: center;
+  min-height: 2.25rem;
+  max-height: 2.25rem;
+  max-width: 9.375rem;
   padding: 0.4rem 1.2rem;
   font-size: 0.875rem;
   font-weight: 500;
@@ -169,4 +177,45 @@ ul {
 .book-item-button:hover {
   background-color: var(--white);
   color: var(--dark);
+}
+/* --- Loader --- */
+.book-list.loading {
+  grid-template-columns: 1fr;
+}
+.load {
+  grid-column: 1 / span 1;
+  justify-self: center;
+  align-self: center;
+  text-align: center;
+  width: 6.25rem;
+  height: 2.1875rem;
+}
+.line {
+  display: inline-block;
+  width: 15px;
+  height: 0.9375rem;
+  /* margin-right: 0.5rem; */
+  border-radius: 0.9375rem;
+  background-color: var(--clr-main);
+}
+.load .line:nth-child(1) {
+  animation: loading 1.5s 1s infinite;
+}
+.load .line:nth-child(2) {
+  animation: loading 1.5s 0.5s infinite;
+}
+.load .line:nth-child(3) {
+  animation: loading 1.5s 0s infinite;
+}
+/* --- Animation --- */
+@keyframes loading {
+  0% {
+    height: 0.9375rem;
+  }
+  50% {
+    height: 2.1875rem;
+  }
+  100% {
+    height: 0.9375rem;
+  }
 }

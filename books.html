@@ -31,7 +31,7 @@
                 name="title"
                 placeholder="Busca por el nombre del libro"
               />
-              <button class="search-button" type="submit">
+              <button class="search-button" id="search-button" type="submit">
                 <img
                   class="search-button-icon"
                   src="./images/search.svg"
@@ -40,8 +40,12 @@
               </button>
             </div>
           </form>
-          <ul class="book-list" id="list-book">
-            <p>...Loading</p>
+          <ul class="book-list mb-5 loading" id="list-book">
+            <div class="load">
+              <div class="line"></div>
+              <div class="line"></div>
+              <div class="line"></div>
+            </div>
           </ul>
         </div>
       </div>

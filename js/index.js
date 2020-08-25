@@ -7,11 +7,6 @@ const API_URL = "https://bibliotecaunfv.herokuapp.com";
 // Events
 $form.addEventListener("submit", async (ev) => {
   ev.preventDefault();
-  $btnSubmit.disabled = true;
-  goToMainPage();
-});
-$btnSubmit.addEventListener("click", () => {
-  $btnSubmit.disabled = true;
   goToMainPage();
 });
 
@@ -19,6 +14,7 @@ $btnSubmit.addEventListener("click", () => {
 async function goToMainPage() {
   const userCode = document.querySelector("#user-code");
   const validate = validateInput(userCode, "#input-alert");
+  $btnSubmit.disabled = true;
   if (validate) {
     const { status, data, message } = await getUserById(userCode.value);
     if (status) {
