@@ -13,23 +13,20 @@
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
+    <nav class="navbar navbar-light bg-white nav nav-books-shadow mb-5">
+      <div class="container">
+        <a class="navbar-brand navbar-books" href="http://localhost:5500/">
+          <img
+            class="navbar-image"
+            src="./images/unfv-logo.png"
+            alt="UNFV logo"
+          />
+        </a>
+      </div>
+    </nav>
     <div class="container">
-    
       <div class="row">
         <div class="col-12">
-          <nav class="navbar navbar-expand-lg tamaño">
-            
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-              <a class="navbar-brand" href="books.html"><img src="./images/logo_unfv2.png" alt=""></a>
-              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
-                  <a class="nav-link" href="books.html">Catalogo de la Biblioteca de la UNFV</a>
-                </li>
-               
-              </ul>
-             
-            </div>
-          </nav>
           <form id="search-form" class="search-form">
             <div class="search-form-container">
               <input
@@ -46,8 +43,6 @@
                   alt="search icon"
                 />
               </button>
-              
-
             </div>
           </form>
           <ul class="book-list mb-5 loading" id="list-book">
