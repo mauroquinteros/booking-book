@@ -11,14 +11,19 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="./css/styles.css" />
-    <link rel="stylesheet" href="./css/login.css" />
+    <!-- <link rel="stylesheet" href="./css/login.css" /> -->
   </head>
   <body>
-    <section class="container main ">
-      <div class="row login-form">
-        <div class="col-6 u-full-width">
+    <section class="container main">
+      <div class="row">
+        <div class="col-6 u-full-width" style="border: 1px solid red">
           <h3 class="text-center mb-4">
-          <img src="./images/Logo_UNFV2.png" alt="">
+            <img
+              width="100"
+              class="login-logo"
+              src="./images/unfv-logo.png"
+              alt="UNFV logo"
+            />
           </h3>
           <form method="POST" class="form" id="form">
             <div class="form-group">
@@ -30,7 +35,6 @@
                 type="text"
                 placeholder="Ejemplo: 2017024511"
               />
-            
               <small id="input-alert" class="form-text"></small>
             </div>
             <button class="btn btn-primary" id="btn-submit" type="submit">

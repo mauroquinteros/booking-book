@@ -44,7 +44,6 @@ ul {
 
 /* login */
 
-
 /* Search */
 .search-form {
   display: flex;
@@ -223,16 +222,16 @@ ul {
     height: 0.9375rem;
   }
 }
-.tamaño{
+/* .tamaño {
   max-height: 100px;
 }
-.navbar{
+.navbar {
   background-color: var(--dark);
 }
-.nav-link{
+.nav-link {
   font-size: 20px;
   color: #787a7c;
 }
-.nav-link:hover{
+.nav-link:hover {
   color: #ffffff;
-}
+} */
