@@ -1,7 +1,7 @@
 const $form = document.querySelector("#form");
 const $btnSubmit = document.querySelector("#btn-submit");
 
-const BASE_URL = "https://mauroquinteros.github.io/reservar-libro/";
+const BASE_URL = "https://mauroquinteros.github.io/booking-book/";
 const API_URL = "https://bibliotecaunfv.herokuapp.com";
 
 // Events
