@@ -15,6 +15,7 @@ $form.addEventListener("submit", async (ev) => {
 
 async function searchBook() {
   const { value } = document.querySelector("#search-input");
+  removeLoader($listBook);
   addLoader($listBook);
   if (value === "") {
     displayAllBooks();
@@ -33,10 +34,12 @@ function addLoader($container) {
     <div class="line"></div>
   `;
   $container.appendChild($loader);
+  console.log("Loader agregado");
 }
 
 function removeLoader($container) {
   $listBook.querySelectorAll("*").forEach((node) => node.remove());
+  console.log("Loader removido");
   $container.classList.remove("loading");
 }
 
